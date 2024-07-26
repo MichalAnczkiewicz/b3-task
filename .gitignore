@@ -1,7 +1,7 @@
 # Intellij
-.idea/
 *.iml
 *.iws
+/.idea/
 
 # Maven
 log/
