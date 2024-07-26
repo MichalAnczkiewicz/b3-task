@@ -2,11 +2,12 @@ package org.example.ui;
 
 import com.microsoft.playwright.Page;
 import io.cucumber.java.After;
+import io.cucumber.java.AfterStep;
 import io.cucumber.java.Before;
+import io.cucumber.java.Scenario;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.example.Hooks;
 import org.example.pages.cart.CheckoutCart;
 import org.example.pages.product.ProductDetailsPage;
 import org.example.pages.search.SearchPage;
@@ -61,6 +62,18 @@ public class CheckoutCartSteps {
 
         String priceOnCart = new CheckoutCart(page).getProductPrice();
         Assertions.assertEquals(priceOnCart, priceOnProductCard);
+    }
+
+    @AfterStep
+    public void afterStep(Scenario scenario) {
+        System.out.println("Jestem w after stepie");
+        try {
+            byte[] screenshot = page.screenshot();
+            scenario.attach(screenshot, "image/png", scenario.getName() + Math.random() * 1000000 );
+            System.out.println(scenario);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @After
