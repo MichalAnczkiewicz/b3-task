@@ -1,42 +1,71 @@
 package org.example.ui;
 
+import com.microsoft.playwright.Page;
+import io.cucumber.java.After;
+import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.example.Hooks;
+import org.example.pages.cart.CheckoutCart;
+import org.example.pages.product.ProductDetailsPage;
+import org.example.pages.search.SearchPage;
+import org.example.statics.ServiceUrls;
+import org.example.utils.BrowserConfig;
+import org.example.utils.ProductNameGetter;
+import org.example.utils.TestHelpers;
+import org.junit.jupiter.api.Assertions;
 
 public class CheckoutCartSteps {
 
-    @Given("I am on the homepage {string}")
-    public void i_am_on_the_homepage(String string) {
-        // Write code here that turns the phrase above into concrete actions
-//        throw new io.cucumber.java.PendingException();
-        System.out.println("test");
+    private final BrowserConfig browserConfig = new BrowserConfig();
+    private final Page page = browserConfig.createPage();
+
+    private TestHelpers testHelpers;
+    private ProductDetailsPage productDetailsPage;
+    private String priceOnProductCard;
+    private static final String productName = ProductNameGetter.PRODUCT_NAME_PROPERTY;
+
+    @Before
+    public void setup() {
+
+        testHelpers = new TestHelpers(page);
+        productDetailsPage= new ProductDetailsPage(page);
+    }
+
+    @Given("I am on the homepage")
+    public void i_am_on_the_homepage() {
+
+        testHelpers.openWebsite(ServiceUrls.HOMEPAGE);
     }
     @When("I search for a product")
     public void i_search_for_a_product() {
-        // Write code here that turns the phrase above into concrete actions
-//        throw new io.cucumber.java.PendingException();
-        System.out.println("test1");
 
+        SearchPage searchPage = new SearchPage(page);
+        searchPage.clickSearchInput();
+        searchPage.enterText(productName);
+        searchPage.clickGameTitle(productName);
     }
     @Then("I save the price of the product")
     public void i_save_the_price_of_the_product() {
-        // Write code here that turns the phrase above into concrete actions
-//        throw new io.cucumber.java.PendingException();
-        System.out.println("test2");
 
+        priceOnProductCard = productDetailsPage.getProductPrice();
     }
     @When("I add the product to the cart")
     public void i_add_the_product_to_the_cart() {
-        // Write code here that turns the phrase above into concrete actions
-//        throw new io.cucumber.java.PendingException();
-        System.out.println("test3");
 
+        productDetailsPage.addToCartButton();
     }
     @Then("the price of the product in the cart should match the saved price")
     public void the_price_of_the_product_in_the_cart_should_match_the_saved_price() {
-        // Write code here that turns the phrase above into concrete actions
-//        throw new io.cucumber.java.PendingException();
-        System.out.println("test4");
+
+        String priceOnCart = new CheckoutCart(page).getProductPrice();
+        Assertions.assertEquals(priceOnCart, priceOnProductCard);
+    }
+
+    @After
+    public void tearDown() {
+
+        browserConfig.closeBrowser();
     }
 }

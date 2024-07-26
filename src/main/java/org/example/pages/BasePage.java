@@ -13,7 +13,7 @@ public class BasePage {
 
     private static final Logger LOGGER
             = LogManager.getLogger(BasePage.class);
-    private static final String REQUEST_CORRECTLY_FIRED = "Request correctly firef: ";
+    private static final String REQUEST_CORRECTLY_FIRED = "Request correctly fired: ";
     protected final Page page;
 
     public BasePage(Page page) {
@@ -40,7 +40,7 @@ public class BasePage {
         return locator.isVisible();
     }
 
-    protected void fill(Locator locator, String value) {
+    protected void enterTextToInput(Locator locator, String value) {
 
         waitForElementToBeVisible(locator);
         locator.fill(value);
@@ -53,9 +53,11 @@ public class BasePage {
         locator.hover();
     }
 
-    protected void clickAndWaitForNavigation(Locator locator) {
+    protected void clickAndWaitForNavigation(Locator locator, String urlToWaitFor) {
 
-        page.waitForNavigation(() -> click(locator));
+        click(locator);
+        page.waitForURL(String.format("**/%s*",urlToWaitFor));
+//        page.waitForNavigation(() -> click(locator));
     }
 
     protected String getTextFromElement(Locator locator) {
@@ -74,11 +76,11 @@ public class BasePage {
         }
     }
 
-    protected void clickAndWaitForRequest(Locator locator, String request) {
+    protected void clickAndWaitForRequestWithStatus(Locator locator, String request, int status) {
 
         Response resp = page.waitForResponse(
                 response ->
-                        response.status() == 200 && response.url().contains(request),
+                        response.status() == status && response.url().contains(request),
                 () -> click(locator));
         LOGGER.info(REQUEST_CORRECTLY_FIRED + request);
     }
