@@ -38,7 +38,7 @@ public class TestHelpers {
 
         if (!success) {
             Assertions
-                    .fail(String.format("Website %s didn't respond %d number of times. Test failed.", url, maxRetries));
+                    .fail(String.format("Website %s didn't respond %d number of times. Test ended.", url, maxRetries));
         }
     }
 }

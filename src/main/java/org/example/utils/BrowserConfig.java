@@ -56,15 +56,15 @@ public class BrowserConfig {
 
         Browser browser;
 
-        switch (BROWSER_PROPERTY) {
-            case "FIREFOX" -> {
+        switch (BROWSER_PROPERTY.toLowerCase()) {
+            case "firefox" -> {
 
                 browser = playwright.firefox().launch(new BrowserType.LaunchOptions()
                         .setHeadless(false));
                 LOGGER.info(String.format(SELECTED_BROWSER_MESSAGE, FIREFOX, browser.version()));
                 return browser;
             }
-            case "WEBKIT" -> {
+            case "webkit" -> {
 
                 browser = playwright.webkit().launch(new BrowserType.LaunchOptions()
                         .setHeadless(false));

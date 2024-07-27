@@ -8,6 +8,8 @@ import java.util.Locale;
 
 public class ProductDetailsPage extends BasePage {
 
+    private final String urlToWaitFor = "**/page/cart*";
+
     private final Locator paymentInfo;
     private final Locator price;
     private final Locator addToCartButton;
@@ -34,10 +36,10 @@ public class ProductDetailsPage extends BasePage {
     public void addToCartButton() {
         if (getProductName().contains("account")) {
             click(addToCartButton);
-            clickAndWaitForNavigation(modalAddToCartButton, "**/page/cart*");
+            clickAndWaitForNavigation(modalAddToCartButton, urlToWaitFor);
 
         } else {
-            clickAndWaitForNavigation(addToCartButton, "**/page/cart*");
+            clickAndWaitForNavigation(addToCartButton, urlToWaitFor);
         }
     }
 
