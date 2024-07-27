@@ -14,11 +14,12 @@ import org.junit.jupiter.api.Assertions;
 public class CheckoutCartSteps {
 
     private static final String productName = ProductNameGetter.PRODUCT_NAME_PROPERTY;
-
-    private String priceOnProductCard;
+    
     private final TestContext testContext;
     private final ProductDetailsPage productDetailsPage;
     private final TestHelpers testHelpers;
+
+    private String priceOnProductCard;
 
     public CheckoutCartSteps(TestContext testContext) {
         this.testContext = testContext;
