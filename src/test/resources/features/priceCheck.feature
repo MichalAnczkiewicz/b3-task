@@ -1,6 +1,6 @@
 Feature: Checkout cart
 
-  @Regression
+  @Regression2
   Scenario: Check if searched product price is the same on details and checkout cart
     Given I am on the homepage
     When I search for a product

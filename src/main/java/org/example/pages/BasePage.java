@@ -11,9 +11,7 @@ import static com.microsoft.playwright.options.WaitForSelectorState.VISIBLE;
 
 public class BasePage {
 
-    private static final Logger LOGGER
-            = LogManager.getLogger(BasePage.class);
-    private static final String REQUEST_CORRECTLY_FIRED = "Request correctly fired: ";
+    private static final Logger LOGGER = LogManager.getLogger(BasePage.class);
     protected final Page page;
 
     public BasePage(Page page) {
@@ -25,12 +23,12 @@ public class BasePage {
 
         try {
 
-            LOGGER.info("Klikam w element o lokatorze: " + locator);
+            LOGGER.info("Clicking on element with locator: " + locator);
             locator.hover();
             locator.click();
         } catch (TimeoutError timeoutError) {
 
-            throw new TimeoutError("Nie znaleziono elementu do klikniecia: " + locator);
+            throw new TimeoutError("Element not found for clicking: " + locator);
         }
     }
 
@@ -56,8 +54,7 @@ public class BasePage {
     protected void clickAndWaitForNavigation(Locator locator, String urlToWaitFor) {
 
         click(locator);
-        page.waitForURL(String.format("**/%s*",urlToWaitFor));
-//        page.waitForNavigation(() -> click(locator));
+        page.waitForURL(String.format("**/%s*", urlToWaitFor));
     }
 
     protected String getTextFromElement(Locator locator) {
@@ -72,16 +69,7 @@ public class BasePage {
 
             locator.first().waitFor(new Locator.WaitForOptions().setState(VISIBLE));
         } catch (TimeoutError error) {
-            throw new TimeoutError("Nie znaleziono elementu: " + locator);
+            throw new TimeoutError("Element not found: " + locator);
         }
-    }
-
-    protected void clickAndWaitForRequestWithStatus(Locator locator, String request, int status) {
-
-        Response resp = page.waitForResponse(
-                response ->
-                        response.status() == status && response.url().contains(request),
-                () -> click(locator));
-        LOGGER.info(REQUEST_CORRECTLY_FIRED + request);
     }
 }

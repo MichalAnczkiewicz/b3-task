@@ -3,8 +3,6 @@ package org.example.pages.product;
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
 import org.example.pages.BasePage;
-import org.example.utils.ApiRequests;
-import org.example.utils.HTTPStatus;
 
 import java.util.Locale;
 
@@ -34,17 +32,10 @@ public class ProductDetailsPage extends BasePage {
     }
 
     public void addToCartButton() {
-
-        if(getProductName().contains("account")) {
-
+        if (getProductName().contains("account")) {
             click(addToCartButton);
-//            clickAndWaitForRequestWithStatus(modalAddToCartButton, ApiRequests.ADD_TO_CART_REQUEST, HTTPStatus.STATUS_200);
-            clickAndWaitForNavigation(modalAddToCartButton, "**/page/cart*");
         }
-        else {
-
-            clickAndWaitForRequestWithStatus(addToCartButton, ApiRequests.ADD_TO_CART_REQUEST, HTTPStatus.STATUS_200);
-        }
+        clickAndWaitForNavigation(modalAddToCartButton, "**/page/cart*");
     }
 
     private String getProductName() {
