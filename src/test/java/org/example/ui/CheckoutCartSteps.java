@@ -1,7 +1,5 @@
 package org.example.ui;
 
-import io.cucumber.java.AfterStep;
-import io.cucumber.java.Scenario;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -16,14 +14,16 @@ import org.junit.jupiter.api.Assertions;
 public class CheckoutCartSteps {
 
     private static final String productName = ProductNameGetter.PRODUCT_NAME_PROPERTY;
-    
-    private TestContext testContext;
+
     private String priceOnProductCard;
-    private ProductDetailsPage productDetailsPage = new ProductDetailsPage(testContext.getPage());
-    private TestHelpers testHelpers = new TestHelpers(testContext.getPage());
+    private final TestContext testContext;
+    private final ProductDetailsPage productDetailsPage;
+    private final TestHelpers testHelpers;
 
     public CheckoutCartSteps(TestContext testContext) {
         this.testContext = testContext;
+        productDetailsPage = new ProductDetailsPage(testContext.getPage());
+        testHelpers = new TestHelpers(testContext.getPage());
     }
 
     @Given("I am on the homepage")

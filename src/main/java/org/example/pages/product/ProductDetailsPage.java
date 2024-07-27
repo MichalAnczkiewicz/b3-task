@@ -34,8 +34,11 @@ public class ProductDetailsPage extends BasePage {
     public void addToCartButton() {
         if (getProductName().contains("account")) {
             click(addToCartButton);
+            clickAndWaitForNavigation(modalAddToCartButton, "**/page/cart*");
+
+        } else {
+            clickAndWaitForNavigation(addToCartButton, "**/page/cart*");
         }
-        clickAndWaitForNavigation(modalAddToCartButton, "**/page/cart*");
     }
 
     private String getProductName() {

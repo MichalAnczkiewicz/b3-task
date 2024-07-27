@@ -13,7 +13,5 @@ import static io.cucumber.junit.platform.engine.Constants.OBJECT_FACTORY_PROPERT
 @ConfigurationParameter(key = OBJECT_FACTORY_PROPERTY_NAME, value = "CucumberPicoInjector")
 public class CucumberTestRunner {
 
-    public CucumberTestRunner() {
-        // Constructor is now empty as we're using configuration parametorgers
-    }
+    public CucumberTestRunner() {}
 }

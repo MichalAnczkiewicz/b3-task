@@ -2,7 +2,6 @@ package org.example.pages;
 
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
-import com.microsoft.playwright.Response;
 import com.microsoft.playwright.TimeoutError;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -32,23 +31,10 @@ public class BasePage {
         }
     }
 
-    protected boolean isElementVisible(Locator locator) {
-
-        waitForElementToBeVisible(locator);
-        return locator.isVisible();
-    }
-
     protected void enterTextToInput(Locator locator, String value) {
 
         waitForElementToBeVisible(locator);
         locator.fill(value);
-    }
-
-    protected void hoverOverElement(Locator locator) {
-
-        waitForElementToBeVisible(locator);
-        page.evaluate("window.scrollTo(0,0)");
-        locator.hover();
     }
 
     protected void clickAndWaitForNavigation(Locator locator, String urlToWaitFor) {
@@ -60,6 +46,7 @@ public class BasePage {
     protected String getTextFromElement(Locator locator) {
 
         waitForElementToBeVisible(locator);
+        LOGGER.info(String.format("Getting text from element: %s", locator));
         return locator.textContent().trim();
     }
 
@@ -67,6 +54,7 @@ public class BasePage {
 
         try {
 
+            LOGGER.info(String.format("Waiting for element: %s to be visible", locator));
             locator.first().waitFor(new Locator.WaitForOptions().setState(VISIBLE));
         } catch (TimeoutError error) {
             throw new TimeoutError("Element not found: " + locator);
