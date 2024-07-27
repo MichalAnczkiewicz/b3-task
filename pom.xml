@@ -53,6 +53,12 @@
       <scope>test</scope>
     </dependency>
     <dependency>
+    <groupId>io.cucumber</groupId>
+    <artifactId>cucumber-picocontainer</artifactId>
+    <version>${cucumber.version}</version>
+    <scope>test</scope>
+</dependency>
+    <dependency>
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-core</artifactId>
       <version>${log4j.version}</version>
@@ -79,6 +85,9 @@
           <includes>
             <include>**/CucumberTestRunner.java</include>
           </includes>
+          <systemPropertyVariables>
+            <cucumber.plugin>html:target/cucumber-report/cucumber-html-report.html</cucumber.plugin>
+          </systemPropertyVariables>
         </configuration>
       </plugin>
     </plugins>

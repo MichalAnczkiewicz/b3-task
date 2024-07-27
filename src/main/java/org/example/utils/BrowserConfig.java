@@ -12,8 +12,8 @@ public class BrowserConfig {
             = LogManager.getLogger(BrowserConfig.class);
     private static final String SELECTED_BROWSER_MESSAGE = "Selected: %s, version %s";
     private static final String BROWSER_PROPERTY = System.getProperty("BROWSER", "CHROME");
+    
     private Playwright playwright;
-
     private BrowserContext browserContext;
 
     public Page createPage() {

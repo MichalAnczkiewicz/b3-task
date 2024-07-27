@@ -10,8 +10,7 @@ import org.junit.jupiter.api.Assertions;
 public class TestHelpers {
 
     private static final String URL = "https://g2a.com";
-    private static final Logger LOGGER
-            = LogManager.getLogger(TestHelpers.class);
+    private static final Logger LOGGER = LogManager.getLogger(TestHelpers.class);
     private final Page page;
 
     public TestHelpers(Page page) {
@@ -26,19 +25,20 @@ public class TestHelpers {
 
         for (int retryCount = 0; retryCount < maxRetries; retryCount++) {
             try {
-                page.waitForResponse(response ->
-                                response.url().contains(url) && response.status() == 200,
+                page.waitForResponse(response -> response.url().contains(url) && response.status() == 200,
                         () -> page.navigate(URL));
                 success = true;
                 page.waitForLoadState(LoadState.DOMCONTENTLOADED);
                 break;
             } catch (TimeoutError e) {
 
-                LOGGER.error(String.format("The website %s didn't respond for %d times" , url, retryCount + 1));
+                LOGGER.error(String.format("The website %s didn't respond for %d times", url, retryCount + 1));
             }
         }
 
         if (!success) {
-            Assertions.fail(String.format("Website %s didn't respond %d number of times. Test failed.", url, maxRetries));
-        }}
+            Assertions
+                    .fail(String.format("Website %s didn't respond %d number of times. Test failed.", url, maxRetries));
+        }
+    }
 }
