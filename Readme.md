@@ -28,7 +28,7 @@ Struktura projektu (standardowa dla projektów Java) składa się z dwóch głó
 * **src/main** -  Zawiera wszystkie klasy oraz metody niezbędne do automatyzacji testów (PageObjecty, utilsy, etc.)
 * **src/test** - Zawiera pliki z testami oraz pliki konfiguryacyjne dla Cucumber. Dodatkowo w katalogu resources znajdują się feature z przykładowymi scenariuszami.
 
-<a name="test-concept"></a>y
+<a name="test-concept"></a>
 # 3. Koncepcja i co zostało zrobione dodatkowo
 
 ## 3.1. Testy
