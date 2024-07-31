@@ -1,7 +1,5 @@
 FROM mcr.microsoft.com/playwright:focal
 
-# === INSTALL JDK and Maven ===
-
 # Update package lists and install OpenJDK 17
 RUN apt-get update && apt-get install -y --no-install-recommends \
     openjdk-17-jdk wget tar && \
