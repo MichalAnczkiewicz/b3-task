@@ -79,28 +79,21 @@ mvn test -DBROWSER=firefox -DPRODUCT_NAME="Tom Clancy"
 ## 5.2. Docker
 Jako, że każdy może mieć różne wersje Javy i mavena, do odpalania testów zalecane jest używanie dockera. W głównym katalogu projektu znajduje się plik Dockerfile, z predefiniowanymi wersjami Javy, mavena oraz Playwright.
 
-Na początku trzeba stworzyć sobie obraz z tego pliku za pomocą komendy: 
+Aby uruchomić testy na dockerze, w głównym folderze wystarczy wywołać komendę
 
 ```
-docker build -t g2a-test .
+docker-compose up
 ``` 
 
-Gdy obraz zostanie stworzony, należy uruchomić kontener za pomocą komendy:
+Zostaną wtedy uruchomione testy z domyślnymi parametrami PRODUCT_NAME oraz BROWSER, które są zdefiniowane w pliku wspomnianym wyżej.
+
+Aby uruchomić testy z innym produktem, i w innej przeglądarce, do powyższej komendy należy dodać odpowiednie parametry, np:
 
 ```
-docker run -it g2a-test bin/bash
-```
-dzięki czemu zostanie otwarta nowa konsola w kontenerze. Należy przejść do folderu `/app`, gdzie został przekopiowany projekt.
+PRODUCT_NAME=tom-clancy BROWSER=firefox docker-compose up
+``` 
 
-```
-cd /app
-```
-
-Następnie testy można uruchamiać na różne sposoby za pomocą przykładowych komend podanych w punkcie 5.1, z dopiskiem `xvfb-run`, który jest potrzebny do odpalenia testów w trybie graficznym (nie headless) w dockerze.    
-
-```
-xvfb-run mvn test -DBROWSER=firefox -DPRODUCT_NAME="Tom Clancy" 
-```
+zostaną dzięki temu podmienione domyślne wartości z pliku docker-compose.yml
 
 <a name="issues"></a>
 # 6. Napotkane problemy
