@@ -9,7 +9,7 @@ import java.util.Locale;
 public class SearchPage extends BasePage {
 
     //could be local variable, but if test will be extended in the future, it may be helpful to leave it here as it may be reused
-    private final String gameTitle = "li[data-url*='%s']";
+    private final String gameTitle = "li[data-url*='%s'][class]";
     private final Locator searchInput;
 
     public SearchPage(Page page) {

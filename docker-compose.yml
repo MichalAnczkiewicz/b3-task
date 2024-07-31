@@ -1,0 +1,9 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./target:/app/target
+    command: /bin/bash -c "xvfb-run mvn test -DPRODUCT_NAME=${PRODUCT_NAME:-counter-strike} -DBROWSER=${BROWSER:-chrome} && echo 'Tests completed'"
+    working_dir: /app

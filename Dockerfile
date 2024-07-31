@@ -15,9 +15,7 @@ RUN ARCH=$(dpkg --print-architecture) && \
         JAVA_HOME=/usr/lib/jvm/java-17-openjdk-arm64; \
     else \
         echo "Unsupported architecture: $ARCH"; exit 1; \
-    fi && \
-    echo "JAVA_HOME=$JAVA_HOME" >> /etc/environment && \
-    echo "export JAVA_HOME=$JAVA_HOME" >> /etc/profile
+    fi
 
 # Download and install Maven
 RUN wget https://repo.maven.apache.org/maven2/org/apache/maven/apache-maven/3.8.6/apache-maven-3.8.6-bin.tar.gz  && \
